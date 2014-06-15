@@ -64,7 +64,7 @@ class FizzBuzzTest extends PHPUnitExtendedTestCase {
     }
 
     public function test_returnFizzBuzzBazzNumbers(){
-        $this->assertCalculate( [105, 952], "FizzBuzzBazz");
+        $this->assertCalculate( [105, 954, 966], "FizzBuzzBazz");
     }
 }
  
