@@ -41,28 +41,13 @@ class Is implements Rule {
 }
 
 class FizzBuzz {
-    function __construct (){}
+    private $rules;
+
+    function __construct ($rules){
+        $this->rules = $rules;
+    }
 
     public function calculateFizzBuzz($int) {
-        $fizzBuzzRules = array(
-            "Fizz"  => array(
-                new DividableBy(3),
-                new Contains(3),
-                new Is(954)
-            ),
-            "Buzz"  => array(
-                new DividableBy(5),
-                new Contains(5),
-                new Is(954),
-                new Is(966)
-            ),
-            "Bazz"  => array(
-                new DividableBy(7),
-                new Contains(7),
-                new Is(954)
-            )
-        );
-
         if ($int <= 0) throw new InvalidArgumentException;
 
 
@@ -73,7 +58,7 @@ class FizzBuzz {
             }
             return $ruleApplied;
         };
-        $appliedRules = $this->filter_array($fizzBuzzRules, $appliedToInput);
+        $appliedRules = $this->filter_array($this->rules, $appliedToInput);
 
         if(count($appliedRules) == 0) return $int;
         return implode("", array_keys($appliedRules));

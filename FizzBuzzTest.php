@@ -12,7 +12,24 @@ class FizzBuzzTest extends PHPUnitExtendedTestCase {
     private $calculateFizzBuzz;
 
     public function setUp(){
-        $this->fizzBuzz = new FizzBuzz();
+        $this->fizzBuzz = new FizzBuzz(array(
+            "Fizz"  => array(
+                new DividableBy(3),
+                new Contains(3),
+                new Is(954)
+            ),
+            "Buzz"  => array(
+                new DividableBy(5),
+                new Contains(5),
+                new Is(954),
+                new Is(966)
+            ),
+            "Bazz"  => array(
+                new DividableBy(7),
+                new Contains(7),
+                new Is(954)
+            )
+        ));
         $this->calculateFizzBuzz = function ($input) {
             return $this->fizzBuzz->calculateFizzBuzz($input);
         };
