@@ -24,7 +24,7 @@ class Contains implements Rule {
     }
 
     public function isApplied($container) {
-        if(strpos($container, (string)$this->content) !== false) return true;
+        return (strpos($container, (string)$this->content) !== false);
     }
 }
 
