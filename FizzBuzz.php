@@ -41,38 +41,48 @@ class Is implements Rule {
 }
 
 class FizzBuzz {
-    private $rules;
+    private $mappings;
 
-    function __construct ($rules){
-        $this->rules = $rules;
+    function __construct ($mappings){
+        $this->mappings = $mappings;
     }
 
-    public function calculateFizzBuzz($int) {
-        if ($int <= 0) throw new InvalidArgumentException;
+    public function calculateFizzBuzz($input) {
+        if ($input <= 0) throw new InvalidArgumentException;
 
+        $appliedMappings = $this->getAppliedMappings($input);
 
-        $appliedToInput = function ($value) use ($int) {
-            $ruleApplied = false;
-            foreach ($value as $rulesName => $rule){
-                $ruleApplied = $ruleApplied || $rule->isApplied($int);
-            }
-            return $ruleApplied;
+        if(count($appliedMappings) == 0) return $input;
+        return implode("", array_keys($appliedMappings));
+    }
+
+    private function getAppliedMappings($input){
+        $appliedMapping = function ($rules, $name) use ($input) {
+            $appliedRule = function ($rule, $index) use ($input) {
+                return $rule->isApplied($input);
+            };
+
+            return $this->isAny($rules, $appliedRule);
         };
-        $appliedRules = $this->filter_array($this->rules, $appliedToInput);
 
-        if(count($appliedRules) == 0) return $int;
-        return implode("", array_keys($appliedRules));
+        return $this->filter($this->mappings, $appliedMapping);
     }
 
-    private function filter_array($inputs, $callback){
-        $ret = array();
+    private function filter($inputArray, $callback){
+        $filteredArray = array();
 
-        foreach ($inputs as $key => $value){
+        foreach ($inputArray as $key => $value){
             if ($callback($value, $key)){
-                $ret[$key] = $value;
+                $filteredArray[$key] = $value;
             }
         }
 
-        return $ret;
+        return $filteredArray;
     }
-} 
+
+    private function isAny($inputArray, $callback){
+        $filteredArray = $this->filter($inputArray, $callback);
+
+        return count($filteredArray) > 0;
+    }
+}
