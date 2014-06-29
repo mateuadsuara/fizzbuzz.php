@@ -6,11 +6,6 @@ class PHPUnitExtendedTestCase extends PHPUnit_Framework_TestCase {
         $this->assertEquals($outputNumber, call_user_func_array($function, $inputArguments));
     }
 
-    /**
-     * @param $function
-     * @param $inputArguments
-     * @param $failureMessage
-     */
     protected function assertThrowsException($function, $inputArguments, $failureMessage)
     {
         $throwedException = false;
