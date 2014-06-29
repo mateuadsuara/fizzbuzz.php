@@ -7,11 +7,11 @@ interface Rule {
 class DividableBy implements Rule {
     private $divisor;
 
-    public function __construct($divisor){
+    public function __construct($divisor) {
         $this->divisor = $divisor;
     }
 
-    public function isApplied($determinedNumber){
+    public function isApplied($determinedNumber) {
         return $determinedNumber % $this->divisor == 0;
     }
 }
@@ -19,7 +19,7 @@ class DividableBy implements Rule {
 class Contains implements Rule {
     private $content;
 
-    public function __construct($content){
+    public function __construct($content) {
         $this->content = $content;
     }
 
@@ -31,11 +31,11 @@ class Contains implements Rule {
 class Is implements Rule {
     private $specialNumber;
 
-    public function __construct($specialNumber){
+    public function __construct($specialNumber) {
         $this->specialNumber = $specialNumber;
     }
 
-    public function isApplied($input){
+    public function isApplied($input) {
         return $this->specialNumber == $input;
     }
 }
@@ -43,7 +43,7 @@ class Is implements Rule {
 class FizzBuzz {
     private $mappings;
 
-    function __construct ($mappings){
+    function __construct($mappings) {
         $this->mappings = $mappings;
     }
 
@@ -52,11 +52,11 @@ class FizzBuzz {
 
         $appliedMappings = $this->getAppliedMappings($input);
 
-        if(count($appliedMappings) == 0) return $input;
+        if (count($appliedMappings) == 0) return $input;
         return implode("", array_keys($appliedMappings));
     }
 
-    private function getAppliedMappings($input){
+    private function getAppliedMappings($input) {
         $appliedMapping = function ($rules, $name) use ($input) {
             $appliedRule = function ($rule, $index) use ($input) {
                 return $rule->isApplied($input);
@@ -68,11 +68,11 @@ class FizzBuzz {
         return $this->filter($this->mappings, $appliedMapping);
     }
 
-    private function filter($inputArray, $callback){
+    private function filter($inputArray, $callback) {
         $filteredArray = array();
 
-        foreach ($inputArray as $key => $value){
-            if ($callback($value, $key)){
+        foreach ($inputArray as $key => $value) {
+            if ($callback($value, $key)) {
                 $filteredArray[$key] = $value;
             }
         }
@@ -80,7 +80,7 @@ class FizzBuzz {
         return $filteredArray;
     }
 
-    private function isAny($inputArray, $callback){
+    private function isAny($inputArray, $callback) {
         $filteredArray = $this->filter($inputArray, $callback);
 
         return count($filteredArray) > 0;

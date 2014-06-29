@@ -11,20 +11,20 @@ class FizzBuzzTest extends PHPUnitExtendedTestCase {
 
     private $calculateFizzBuzz;
 
-    public function setUp(){
+    public function setUp() {
         $this->fizzBuzz = new FizzBuzz(array(
-            "Fizz"  => array(
+            "Fizz" => array(
                 new DividableBy(3),
                 new Contains(3),
                 new Is(954)
             ),
-            "Buzz"  => array(
+            "Buzz" => array(
                 new DividableBy(5),
                 new Contains(5),
                 new Is(954),
                 new Is(966)
             ),
-            "Bazz"  => array(
+            "Bazz" => array(
                 new DividableBy(7),
                 new Contains(7),
                 new Is(954)
@@ -35,18 +35,18 @@ class FizzBuzzTest extends PHPUnitExtendedTestCase {
         };
     }
 
-    public function test_returnSameNumber(){
+    public function test_returnSameNumber() {
         array_map(
-            function($input){
+            function ($input) {
                 $this->assertFunctionIO($this->calculateFizzBuzz, [$input], $input);
             },
             [1, 2, 4]
         );
     }
 
-    public function test_whenInputIsInvalid_throwsException(){
+    public function test_whenInputIsInvalid_throwsException() {
         array_map(
-            function($inputArguments){
+            function ($inputArguments) {
                 $inputStr = implode(", ", $inputArguments);
                 $this->assertThrowsException($this->calculateFizzBuzz, $inputArguments, "Expected InvalidArgumentException for input $inputStr!");
             },
@@ -54,34 +54,34 @@ class FizzBuzzTest extends PHPUnitExtendedTestCase {
         );
     }
 
-    private function assertCalculate ($inputs, $output){
+    private function assertCalculate($inputs, $output) {
         $argumentsArray = array_map(
-            function($input){
-               return [$input];
+            function ($input) {
+                return [$input];
             },
             $inputs
         );
         $this->assertOutputOfValues($this->calculateFizzBuzz, $argumentsArray, $output);
     }
 
-    public function test_returnFizzNumbers(){
+    public function test_returnFizzNumbers() {
         $this->assertCalculate([3, 6, 9, 13], "Fizz");
     }
 
-    public function test_returnBuzzNumbers(){
-        $this->assertCalculate( [5, 10, 52], "Buzz");
+    public function test_returnBuzzNumbers() {
+        $this->assertCalculate([5, 10, 52], "Buzz");
     }
 
-    public function test_returnBazzNumbers(){
-        $this->assertCalculate( [7, 14, 71], "Bazz");
+    public function test_returnBazzNumbers() {
+        $this->assertCalculate([7, 14, 71], "Bazz");
     }
 
-    public function test_returnFizzBuzzNumbers(){
-        $this->assertCalculate( [15, 45, 51], "FizzBuzz");
+    public function test_returnFizzBuzzNumbers() {
+        $this->assertCalculate([15, 45, 51], "FizzBuzz");
     }
 
-    public function test_returnFizzBuzzBazzNumbers(){
-        $this->assertCalculate( [105, 954, 966], "FizzBuzzBazz");
+    public function test_returnFizzBuzzBazzNumbers() {
+        $this->assertCalculate([105, 954, 966], "FizzBuzzBazz");
     }
 }
  
